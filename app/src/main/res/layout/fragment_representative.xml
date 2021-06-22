@@ -4,6 +4,11 @@
     xmlns:motion="http://schemas.android.com/tools">
 
     <!-- TODO: Add data binding node -->
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="viewModel"-->
+<!--            type="com.example.android.politicalpreparedness.ui.representative.RepresentativeViewModel" />-->
+<!--    </data>-->
 
     <!-- TODO: Add motion scene to hide form on vertical scroll. -->
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -16,7 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/representative_search_title"/>
 
         <!-- TODO: Add data binding value -->
         <!-- TODO: Add visual styling and content -->
@@ -84,14 +90,16 @@
             android:id="@+id/button_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/zip" />
+            app:layout_constraintTop_toBottomOf="@id/zip"
+            android:text="@string/find_my_representatives"/>
 
         <!-- TODO: Add visual styling and content -->
         <Button
             android:id="@+id/button_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/button_search" />
+            app:layout_constraintTop_toBottomOf="@id/button_search"
+            android:text="@string/use_my_location"/>
 
         <!-- TODO: Add visual styling and content -->
         <TextView
@@ -99,7 +107,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_location" />
+            app:layout_constraintTop_toBottomOf="@id/button_location"
+            android:text="@string/my_representatives_title"/>
 
         <!-- TODO: Add Representatives RecyclerView -->
 
