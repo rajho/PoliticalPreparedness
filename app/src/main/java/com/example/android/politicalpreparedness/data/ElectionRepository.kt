@@ -1,6 +1,6 @@
 package com.example.android.politicalpreparedness.data
 
-import com.example.android.politicalpreparedness.data.network.ElectionRemoteDataSource
+import androidx.lifecycle.LiveData
 import com.example.android.politicalpreparedness.data.network.models.Election
 import com.example.android.politicalpreparedness.di.LocalDataSource
 import com.example.android.politicalpreparedness.di.RemoteDataSource
@@ -16,7 +16,7 @@ class ElectionRepository @Inject constructor(
 		return electionRemoteDataSource.getAllElections()
 	}
 
-	override suspend fun getFollowedElections(): List<Election> {
-		TODO("Not yet implemented")
+	override fun observeSavedElections(): LiveData<List<Election>> {
+		return electionLocalDataSource.observeSavedElections()
 	}
 }

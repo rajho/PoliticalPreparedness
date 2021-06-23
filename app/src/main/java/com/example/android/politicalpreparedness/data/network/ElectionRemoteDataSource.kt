@@ -1,5 +1,6 @@
 package com.example.android.politicalpreparedness.data.network
 
+import androidx.lifecycle.LiveData
 import com.example.android.politicalpreparedness.data.IElectionDataSource
 import com.example.android.politicalpreparedness.data.network.models.Election
 import javax.inject.Inject
@@ -13,7 +14,7 @@ class ElectionRemoteDataSource @Inject constructor(
 		return civicsApiService.getElections().elections
 	}
 
-	override suspend fun getFollowedElections(): List<Election> {
+	override fun observeSavedElections(): LiveData<List<Election>> {
 		throw UnsupportedOperationException("Operation not supported")
 	}
 }

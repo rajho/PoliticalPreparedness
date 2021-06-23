@@ -9,7 +9,6 @@ import com.example.android.politicalpreparedness.data.network.models.Division
 import com.example.android.politicalpreparedness.data.network.models.Election
 import com.example.android.politicalpreparedness.di.RepositoryDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -51,23 +50,16 @@ class ElectionsViewModel @Inject constructor(
 		),
 	)
 
-	//TODO: Create live data val for upcoming elections
 	private val _upcomingElections = MutableLiveData<List<Election>>()
 	val upcomingElections: LiveData<List<Election>> = _upcomingElections
 
-	private val _savedElections = MutableLiveData<List<Election>>()
+	private val _savedElections: LiveData<List<Election>> = electionRepository.observeSavedElections()
 	val savedElections: LiveData<List<Election>> = _savedElections
-
-	//TODO: Create live data val for saved elections
 
 	//TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
 	init {
 		loadUpcomingElections()
-		loadSavedElections()
 	}
-
-	//TODO: Create functions to navigate to saved or upcoming election voter info
-
 
 	private fun loadUpcomingElections() {
 		viewModelScope.launch {
@@ -75,11 +67,5 @@ class ElectionsViewModel @Inject constructor(
 		}
 	}
 
-	private fun loadSavedElections() {
-		viewModelScope.launch {
-			delay(2000)
-			_savedElections.value = savedElectionsTest
-		}
-
-	}
+	//TODO: Create functions to navigate to saved or upcoming election voter info
 }

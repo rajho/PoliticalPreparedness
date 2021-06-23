@@ -1,7 +1,9 @@
 package com.example.android.politicalpreparedness.data.database
 
+import androidx.lifecycle.LiveData
 import com.example.android.politicalpreparedness.data.IElectionDataSource
 import com.example.android.politicalpreparedness.data.network.models.Election
+import java.lang.UnsupportedOperationException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -9,10 +11,10 @@ import javax.inject.Singleton
 class ElectionLocalDataSource @Inject constructor(private val electionDao: ElectionDao)
 	: IElectionDataSource {
 	override suspend fun getAllElections(): List<Election> {
-		TODO("Not yet implemented")
+		throw UnsupportedOperationException("NO-OP")
 	}
 
-	override suspend fun getFollowedElections(): List<Election> {
-		TODO("Not yet implemented")
+	override fun observeSavedElections(): LiveData<List<Election>> {
+		return electionDao.getAll()
 	}
 }

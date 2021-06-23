@@ -1,9 +1,12 @@
 package com.example.android.politicalpreparedness.ui.election.voter
 
+import android.content.Intent
+import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModel
 import com.example.android.politicalpreparedness.data.database.ElectionDao
+import javax.inject.Inject
 
-class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
+class VoterInfoViewModel @Inject constructor(private val dataSource: ElectionDao) : ViewModel() {
 
     //TODO: Add live data to hold voter info
 
