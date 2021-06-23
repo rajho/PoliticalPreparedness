@@ -6,6 +6,11 @@
     <!-- TODO: Add data binding node for Voter Info ViewModel -->
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.android.politicalpreparedness.ui.election.voter.VoterInfoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,29 +23,40 @@
             android:id="@+id/election_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
             android:padding="@dimen/default_padding"
             android:singleLine="true"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Subhead"
             app:layout_constraintTop_toTopOf="parent"
-            tools:title="Winconsin Presidential Primary Election"/>
+            app:title="@{viewModel.voterInfo.election.name}"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Subhead"
+            tools:title="Winconsin Presidential Primary Election" />
+
+        <!--        app:title="@{viewModel.voterInfo.election.name}"-->
 
         <!-- TODO: Add visual styling -->
+
+        <!-- TODO: Add visual styling and content -->
+
         <TextView
             android:id="@+id/election_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_padding"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:paddingHorizontal="8dp"
+            android:text="@{viewModel.voterInfo.election.electionDay.toString()}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/election_name"
             tools:text="12 November 2055" />
 
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="8dp"
             android:text="@string/header_election_information"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/election_date" />
@@ -51,9 +67,14 @@
             android:id="@+id/state_locations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/state_header"
+            android:layout_marginTop="8dp"
+            android:onClick="@{() -> viewModel.openLocationsInBrowser()}"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:text="@string/locations_label"
+            android:visibility="@{viewModel.locationUrlAvailable ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            android:text="@string/locations_label"/>
+            app:layout_constraintTop_toBottomOf="@id/state_header" />
 
         <!-- TODO: Add click binding to open web URL -->
         <!-- TODO: Add visual styling and content -->
@@ -61,9 +82,13 @@
             android:id="@+id/state_ballot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/state_locations"
+            android:onClick="@{() -> viewModel.openBallotInformationInBrowser()}"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:text="@string/ballot_label"
+            android:visibility="@{viewModel.ballotInformationUrlAvailable ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            android:text="@string/ballot_label"/>
+            app:layout_constraintTop_toBottomOf="@id/state_locations" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/address_group"
@@ -76,18 +101,32 @@
             android:id="@+id/state_correspondence_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/state_ballot"
-            app:layout_constraintStart_toStartOf="@id/election_date" />
+            app:layout_constraintStart_toStartOf="@id/election_date"
+            app:layout_constraintTop_toBottomOf="@id/state_ballot" />
 
         <!-- TODO: Add data binding -->
         <TextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/state_correspondence_header"
-            app:layout_constraintStart_toStartOf="@id/election_date" />
+            app:layout_constraintStart_toStartOf="@id/election_date"
+            app:layout_constraintTop_toBottomOf="@id/state_correspondence_header" />
 
         <!-- TODO: Add button to save election to Room -->
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:enabled="@{viewModel.election != null}"
+            android:onClick="@{() -> viewModel.toogleSavedElection()}"
+            app:electionSaved="@{viewModel.isSavedElection()}"
+            app:election="@{viewModel.election}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

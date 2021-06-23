@@ -17,6 +17,10 @@
     <string name="header_election_information">Election Information</string>
     <string name="locations_label">Voting Locations</string>
     <string name="ballot_label">Ballot Information</string>
+    <string name="toast_missing_information">Missing data to display voter Information</string>
+    <string name="toast_server_error">Server error. Try again later</string>
+    <string name="follow_election">Follow election</string>
+    <string name="unfollow_election">Unfollow election</string>
 
     <!-- Representative screen -->
     <string name="representative_search_title">Representative Search</string>

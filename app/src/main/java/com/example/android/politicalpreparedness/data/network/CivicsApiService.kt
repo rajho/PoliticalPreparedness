@@ -9,6 +9,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
 
@@ -36,7 +37,10 @@ interface CivicsApiService {
 
 	//TODO: Add voterinfo API Call /voterinfo
 	@GET("voterinfo")
-	suspend fun getVoterInfo(): VoterInfoResponse
+	suspend fun getVoterInfo(
+		@Query("electionId") electionId: Int,
+		@Query("address") address: String
+	): VoterInfoResponse
 
 	//TODO: Add representatives API Call /representatives
 	@GET("representatives")
