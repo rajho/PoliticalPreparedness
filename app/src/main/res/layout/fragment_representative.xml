@@ -6,6 +6,8 @@
     <!-- TODO: Add data binding node -->
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.example.android.politicalpreparedness.ui.representative.RepresentativeViewModel" />
@@ -141,16 +143,41 @@
             app:layout_constraintTop_toBottomOf="@id/representative_title"
             tools:listitem="@layout/representative_list_item" />
 
+        <ImageView
+            android:id="@+id/loading_representatives"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:contentDescription="@string/loading_spinner"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/representative_title"
+            app:srcCompat="@drawable/loading_animation" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/connection_error"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="110dp"-->
+<!--            android:contentDescription="@string/connection_error_image"-->
+<!--            android:visibility="@{viewModel.showConnectionError ? View.VISIBLE : View.GONE}"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/representative_title"-->
+<!--            app:srcCompat="@drawable/ic_connection_error" />-->
+
         <!-- TODO: Add visual styling and content -->
-        <!--        <TextView-->
-        <!--            android:id="@+id/list_placeholder"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            android:gravity="center"-->
-        <!--            android:textAlignment="center"-->
-        <!--            android:text="holaaaa"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/representative_title" />-->
+        <TextView
+            android:id="@+id/list_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:visibility="gone"
+            tools:visibilityMode="ignore"
+            app:layout_constraintTop_toBottomOf="@id/representative_title"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

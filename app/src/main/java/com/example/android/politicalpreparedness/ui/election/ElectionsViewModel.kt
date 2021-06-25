@@ -5,8 +5,8 @@ import com.example.android.politicalpreparedness.data.IElectionDataSource
 import com.example.android.politicalpreparedness.data.network.models.Election
 import com.example.android.politicalpreparedness.di.RepositoryDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 //TODO: Construct ViewModel and provide election datasource
@@ -29,6 +29,9 @@ class ElectionsViewModel @Inject constructor(
 	}
 	val emptySavedElections: LiveData<Boolean> = _emptySavedElections
 
+	private val _showConnectionError = MutableLiveData<Boolean>()
+	val showConnectionError: LiveData<Boolean> = _showConnectionError
+
 	//TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
 	init {
 		loadUpcomingElections()
@@ -37,8 +40,17 @@ class ElectionsViewModel @Inject constructor(
 	private fun loadUpcomingElections() {
 		_loadingUpcomingElections.value = true
 		viewModelScope.launch {
-			_upcomingElections.value = electionRepository.getRemoteElections()
-			_loadingUpcomingElections.value = false
+			try {
+				_upcomingElections.value = electionRepository.getRemoteElections()
+			} catch (e: Exception) {
+				if (e is UnknownHostException) {
+					_showConnectionError.value = true
+				}
+				e.printStackTrace()
+			} finally {
+				_loadingUpcomingElections.value = false
+			}
+
 		}
 	}
 

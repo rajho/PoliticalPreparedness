@@ -13,6 +13,7 @@ import com.example.android.politicalpreparedness.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,6 +39,12 @@ class RepresentativeViewModel @Inject constructor(
 	val useMyLocation: SingleLiveEvent<Boolean> = _useMyLocation
 
 	val showToastInt: SingleLiveEvent<Int> = SingleLiveEvent()
+
+	private val _showConnectionError = MutableLiveData<Boolean>()
+	val showConnectionError: LiveData<Boolean> = _showConnectionError
+
+	private val _loadingRepresentatives = MutableLiveData<Boolean>()
+	val loadingRepresentatives: LiveData<Boolean> = _loadingRepresentatives
 
 	/**
 	 *  The following code will prove helpful in constructing a representative from the API. This code combines the two nodes of the RepresentativeResponse into a single official :
@@ -74,6 +81,8 @@ class RepresentativeViewModel @Inject constructor(
 
 	//TODO: Create function to fetch representatives from API from a provided address
 	fun findMyRepresentatives(useLocation: Boolean) {
+		_loadingRepresentatives.value = true
+
 		val address = if (useLocation) {
 			getAddressFromGeoLocation()
 		} else {
@@ -83,12 +92,18 @@ class RepresentativeViewModel @Inject constructor(
 		viewModelScope.launch {
 			try {
 				_representatives.value = electionRepository.getRepresentatives(address)
-			} catch (e: HttpException) {
-				when(e.code()) {
-					404 -> showToastInt.value = R.string.not_found_error_404
+			} catch (e:Exception) {
+				when(e) {
+					is UnknownHostException -> {
+						_showConnectionError.value = true
+						showToastInt.value = R.string.connection_error
+					}
+					is HttpException -> showToastInt.value = R.string.not_found_error_404
 				}
+			} finally {
+				_loadingRepresentatives.value = false
 			}
-
+			_showConnectionError.value = false
 		}
 	}
 

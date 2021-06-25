@@ -90,6 +90,16 @@ class RepresentativeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 			Toast.makeText(activity, getString(it), Toast.LENGTH_LONG).show()
 		})
 
+		_viewModel.loadingRepresentatives.observe(viewLifecycleOwner, {
+			if (it) {
+				binding.loadingRepresentatives.visibility = View.VISIBLE
+			} else {
+				binding.loadingRepresentatives.visibility = View.GONE
+			}
+		})
+
+
+
 		return binding.root
 	}
 

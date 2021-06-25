@@ -11,6 +11,7 @@ import com.example.android.politicalpreparedness.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -47,11 +48,11 @@ class VoterInfoViewModel @Inject constructor(
 	private val _loading = MutableLiveData<Boolean>()
 	val loading: LiveData<Boolean> = _loading
 
-
 	var electionId: Int? = null
 	var division: Division? = null
 
-
+	private val _showConnectionError = MutableLiveData<Boolean>()
+	val showConnectionError: LiveData<Boolean> = _showConnectionError
 
 	//TODO: Add var and methods to populate voter info
 	init {
@@ -71,7 +72,11 @@ class VoterInfoViewModel @Inject constructor(
 					_voterInfo.value = electionRepository.getVoterInfo(electionId!!, address)
 					_voterInfo.value?.election?.let { it -> _election.value = it}
 				} catch (e: Exception) {
-					_brokenVoterInfo.value = true
+					 when(e) {
+						is HttpException -> _brokenVoterInfo.value = true
+						is UnknownHostException -> _showConnectionError.value = true
+						 else -> _brokenVoterInfo.value = true
+					 }
 				} finally {
 					_loading.value = false
 				}
