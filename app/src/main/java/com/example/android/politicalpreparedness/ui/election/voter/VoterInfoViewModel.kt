@@ -10,6 +10,7 @@ import com.example.android.politicalpreparedness.di.RepositoryDataSource
 import com.example.android.politicalpreparedness.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,6 +41,13 @@ class VoterInfoViewModel @Inject constructor(
 
 	val showToastInt: SingleLiveEvent<Int> = SingleLiveEvent()
 
+	private val _brokenVoterInfo = MutableLiveData<Boolean>()
+	val brokenVoterInfo: LiveData<Boolean> = _brokenVoterInfo
+
+	private val _loading = MutableLiveData<Boolean>()
+	val loading: LiveData<Boolean> = _loading
+
+
 	var electionId: Int? = null
 	var division: Division? = null
 
@@ -55,11 +63,18 @@ class VoterInfoViewModel @Inject constructor(
 	}
 
 	private fun loadVoterInfo() {
+		_loading.value = true
 		viewModelScope.launch {
 			if (electionId != null && division != null) {
-				val address = "${division?.state}, ${division?.country}"
-				_voterInfo.value = electionRepository.getVoterInfo(electionId!!, address)
-				_voterInfo.value?.election?.let { it -> _election.value = it}
+				try {
+					val address = "${division?.state}, ${division?.country}"
+					_voterInfo.value = electionRepository.getVoterInfo(electionId!!, address)
+					_voterInfo.value?.election?.let { it -> _election.value = it}
+				} catch (e: Exception) {
+					_brokenVoterInfo.value = true
+				} finally {
+					_loading.value = false
+				}
 			} else {
 				showToastInt.value = R.string.toast_missing_information
 			}

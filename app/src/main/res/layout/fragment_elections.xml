@@ -5,6 +5,9 @@
 
     <!-- TODO: Add node to connect Election ViewModel -->
     <data>
+
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.example.android.politicalpreparedness.ui.election.ElectionsViewModel" />
@@ -17,12 +20,14 @@
 
         <!-- TODO: Add Upcoming Election Recycler and Header -->
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/upcoming_header"
+            style="@style/HeaderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
             android:text="@string/header_upcoming_elections"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -31,11 +36,14 @@
 
         <!-- TODO: Add Saved Election Recycler and Header -->
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/saved_header"
+            style="@style/HeaderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
             android:text="@string/header_saved_elections"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,34 +56,60 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView2"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/saved_header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/upcoming_header"
             app:layout_constraintVertical_bias="1.0"
-            android:paddingBottom="16dp"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/election_list_item"/>
+            tools:listitem="@layout/election_list_item" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_saved"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
-            android:paddingBottom="16dp"
             android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/election_list_item"/>
+            app:layout_constraintTop_toBottomOf="@+id/saved_header"
+            tools:listitem="@layout/election_list_item" />
+
+        <ImageView
+            android:id="@+id/loading_upcoming"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:contentDescription="@string/loading_spinner"
+            android:visibility="@{viewModel.loadingUpcomingElections ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/saved_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/upcoming_header"
+            app:srcCompat="@drawable/loading_animation" />
+
+        <TextView
+            android:id="@+id/loading_saved"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_saved_elections"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:visibility="@{viewModel.emptySavedElections ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/saved_header"
+            app:srcCompat="@drawable/loading_animation" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

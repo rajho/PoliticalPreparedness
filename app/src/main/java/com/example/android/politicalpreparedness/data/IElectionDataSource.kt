@@ -3,8 +3,11 @@ package com.example.android.politicalpreparedness.data
 import androidx.lifecycle.LiveData
 import com.example.android.politicalpreparedness.data.network.models.Election
 import com.example.android.politicalpreparedness.data.network.models.VoterInfoResponse
+import com.example.android.politicalpreparedness.ui.representative.model.Representative
 
 interface IElectionDataSource {
+
+	suspend fun getRepresentatives(address: String): List<Representative>
 
 	suspend fun getRemoteElections(): List<Election>
 

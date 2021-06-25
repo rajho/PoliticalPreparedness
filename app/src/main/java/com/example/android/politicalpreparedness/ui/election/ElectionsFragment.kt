@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.data.network.models.Division
-import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
+import com.example.android.politicalpreparedness.databinding.FragmentElectionsBinding
 import com.example.android.politicalpreparedness.ui.election.adapter.ElectionListAdapter
 import com.example.android.politicalpreparedness.ui.election.adapter.ElectionListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ElectionsFragment: Fragment() {
 
-    private lateinit var binding: FragmentElectionBinding
+    private lateinit var binding: FragmentElectionsBinding
 
     //TODO: Declare ViewModel
     private val _viewModel: ElectionsViewModel by viewModels()
@@ -27,7 +27,7 @@ class ElectionsFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_election, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_elections, container, false)
 
         //TODO: Add ViewModel values and create ViewModel
         binding.viewModel = _viewModel
@@ -49,7 +49,7 @@ class ElectionsFragment: Fragment() {
         binding.recyclerViewSaved.adapter = savedAdapter
 
         //TODO: Populate recycler adapters
-        _viewModel.upcomingElections.observe(viewLifecycleOwner, Observer {
+        _viewModel.upcomingElections.observe(viewLifecycleOwner, {
             it?.let {
                 upcomingAdapter.submitList(it)
             }

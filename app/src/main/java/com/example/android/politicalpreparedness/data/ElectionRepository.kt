@@ -5,6 +5,7 @@ import com.example.android.politicalpreparedness.data.network.models.Election
 import com.example.android.politicalpreparedness.data.network.models.VoterInfoResponse
 import com.example.android.politicalpreparedness.di.LocalDataSource
 import com.example.android.politicalpreparedness.di.RemoteDataSource
+import com.example.android.politicalpreparedness.ui.representative.model.Representative
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,6 +14,11 @@ class ElectionRepository @Inject constructor(
 	@LocalDataSource private val electionLocalDataSource: IElectionDataSource,
 	@RemoteDataSource private val electionRemoteDataSource: IElectionDataSource,
 ) : IElectionDataSource {
+
+	override suspend fun getRepresentatives(address: String): List<Representative> {
+		return electionRemoteDataSource.getRepresentatives(address)
+	}
+
 	override suspend fun getRemoteElections(): List<Election> {
 		return electionRemoteDataSource.getRemoteElections()
 	}

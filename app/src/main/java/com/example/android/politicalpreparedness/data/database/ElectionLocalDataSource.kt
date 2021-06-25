@@ -5,6 +5,7 @@ import com.example.android.politicalpreparedness.data.IElectionDataSource
 import com.example.android.politicalpreparedness.data.network.models.Election
 import com.example.android.politicalpreparedness.data.network.models.VoterInfoResponse
 import com.example.android.politicalpreparedness.di.IoDispatcher
+import com.example.android.politicalpreparedness.ui.representative.model.Representative
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -31,6 +32,10 @@ class ElectionLocalDataSource @Inject constructor(
 
 	override fun observeSavedElections(): LiveData<List<Election>> {
 		return electionDao.getAll()
+	}
+
+	override suspend fun getRepresentatives(address: String): List<Representative> {
+		throw UnsupportedOperationException("Operation not supported")
 	}
 
 	override suspend fun getRemoteElections(): List<Election> {

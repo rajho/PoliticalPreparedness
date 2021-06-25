@@ -19,6 +19,7 @@
     android:width="24dp"
     android:height="24dp"
     android:tint="#A9A9AC"
+    android:scaleType="fitXY"
     android:viewportWidth="24.0"
     android:viewportHeight="24.0">
     <path

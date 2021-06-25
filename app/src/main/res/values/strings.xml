@@ -12,20 +12,35 @@
     <!-- Elections screen -->
     <string name="header_upcoming_elections">Upcoming Elections</string>
     <string name="header_saved_elections">Saved Elections</string>
+    <string name="loading_spinner">Loading spinner</string>
+    <string name="empty_saved_elections">You have no saved elections</string>
 
     <!-- Voter info screen -->
     <string name="header_election_information">Election Information</string>
-    <string name="locations_label">Voting Locations</string>
-    <string name="ballot_label">Ballot Information</string>
+    <string name="locations_label"><u>Voting Locations</u></string>
+    <string name="ballot_label"><u>Ballot Information</u></string>
     <string name="toast_missing_information">Missing data to display voter Information</string>
     <string name="toast_server_error">Server error. Try again later</string>
+    <string name="toast_bad_request_error_400">Bad request error. Voter info not available</string>
     <string name="follow_election">Follow election</string>
     <string name="unfollow_election">Unfollow election</string>
+    <string name="broken_image">Voter information not available image</string>
+
 
     <!-- Representative screen -->
     <string name="representative_search_title">Representative Search</string>
     <string name="find_my_representatives">Find my representatives</string>
     <string name="use_my_location">Use my location</string>
     <string name="my_representatives_title">My Representatives</string>
+    <string name="hint_address_1">Address Line 1</string>
+    <string name="hint_address_2">Address Line 2</string>
+    <string name="hint_city">City</string>
+    <string name="hint_zip">Zip</string>
+    <string name="permission_denied_explanation">You need to grant location permission to use your location.</string>
+    <string name="location_required_error">Location services must be enabled to get your
+        address</string>
+    <string name="settings">Settings</string>
+    <string name="not_found_error_404">Representatives not found for the address</string>
+
 
 </resources>

@@ -23,7 +23,8 @@
             android:id="@+id/election_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimaryDark"
+            app:titleTextColor="@color/white"
             android:padding="@dimen/default_padding"
             android:singleLine="true"
             app:layout_constraintTop_toTopOf="parent"
@@ -49,6 +50,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/election_name"
+            style="@style/TextStyle"
+            android:textStyle="bold"
             tools:text="12 November 2055" />
 
         <TextView
@@ -57,7 +60,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:paddingHorizontal="8dp"
+            style="@style/TextStyle"
+            android:textStyle="bold"
+            android:textSize="14sp"
             android:text="@string/header_election_information"
+            android:visibility="@{viewModel.loading || viewModel.brokenVoterInfo ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/election_date" />
 
@@ -67,11 +74,12 @@
             android:id="@+id/state_locations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:onClick="@{() -> viewModel.openLocationsInBrowser()}"
             android:paddingVertical="4dp"
             android:paddingHorizontal="8dp"
             android:text="@string/locations_label"
+            style="@style/TextStyle"
             android:visibility="@{viewModel.locationUrlAvailable ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_header" />
@@ -85,6 +93,7 @@
             android:onClick="@{() -> viewModel.openBallotInformationInBrowser()}"
             android:paddingVertical="4dp"
             android:paddingHorizontal="8dp"
+            style="@style/TextStyle"
             android:text="@string/ballot_label"
             android:visibility="@{viewModel.ballotInformationUrlAvailable ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="@id/election_date"
@@ -126,7 +135,43 @@
             app:election="@{viewModel.election}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/PoliticalButton"/>
+
+        <ImageView
+            android:id="@+id/broken_image"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_broken_image"
+            android:visibility="@{viewModel.brokenVoterInfo ? View.VISIBLE : View.GONE}"
+            android:contentDescription="@string/broken_image" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/toast_bad_request_error_400"
+            android:visibility="@{viewModel.brokenVoterInfo ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/broken_image" />
+
+        <ImageView
+            android:id="@+id/loading_upcoming"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:contentDescription="@string/loading_spinner"
+            android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/loading_animation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
