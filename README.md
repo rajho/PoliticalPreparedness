@@ -1,52 +1,18 @@
-# README Template
+# Political Preparedness
 
-Below is a template provided for use when building your README file for students.
-
-# Project Title
-
-Project description goes here.
+App that uses the Google Civics API to display the coming elections in USA and the representatives for an address given.
 
 ## Getting Started
 
-Instructions for how to get a copy of the project running on your local machine.
+To get started with this project, simply pull the repository and import the project into Android Studio. From there, deploy the project to an emulator or device. 
+
+* NOTE: In order for this project to pull data, you will need to add your API Key to the project as a value in the CivicsHttpClient. You can generate an API Key from the [Google Developers Console](https://console.developers.google.com/)
 
 ### Dependencies
 
-```
-Examples here
-```
-
-### Installation
-
-Step by step explanation of how to get a dev environment running.
-
-List out the steps
-
-```
-Give an example here
-```
-
-## Testing
-
-Explain the steps needed to run any automated tests
-
-### Break Down Tests
-
-Explain what each test does and why
-
-```
-Examples here
-```
-## Project Instructions
-
-This section should contain all the student deliverables for this project.
-
-## Built With
-
-* [Item1](www.item1.com) - Description of item
-* [Item2](www.item2.com) - Description of item
-* [Item3](www.item3.com) - Description of item
-
-Include all items used to build project.
-
-## License
+* [Retrofit](https://square.github.io/retrofit/) to make api calls to an HTTP web service.
+* [Moshi](https://github.com/square/moshi) which handles the deserialization of the returned JSON to Kotlin data objects. 
+* [Glide](https://bumptech.github.io/glide/) to load and cache images by URL.
+* [Room](https://developer.android.com/training/data-storage/room) for local database storage.
+* [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for dependency
+ injection
