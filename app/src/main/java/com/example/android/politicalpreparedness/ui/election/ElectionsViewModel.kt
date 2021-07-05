@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-//TODO: Construct ViewModel and provide election datasource
 @HiltViewModel
 class ElectionsViewModel @Inject constructor(
 	@RepositoryDataSource private val electionRepository: IElectionDataSource
@@ -32,7 +31,6 @@ class ElectionsViewModel @Inject constructor(
 	private val _showConnectionError = MutableLiveData<Boolean>()
 	val showConnectionError: LiveData<Boolean> = _showConnectionError
 
-	//TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
 	init {
 		loadUpcomingElections()
 	}
@@ -53,7 +51,4 @@ class ElectionsViewModel @Inject constructor(
 
 		}
 	}
-
-	//TODO: Create functions to navigate to saved or upcoming election voter info
-	// Navigation handled in the fragment
 }

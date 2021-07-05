@@ -21,23 +21,15 @@ class ElectionsFragment: Fragment() {
 
     private lateinit var binding: FragmentElectionsBinding
 
-    //TODO: Declare ViewModel
     private val _viewModel: ElectionsViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_elections, container, false)
-
-        //TODO: Add ViewModel values and create ViewModel
         binding.viewModel = _viewModel
-
-        //TODO: Add binding values
         binding.lifecycleOwner = this
 
-        //TODO: Link elections to voter info
-
-        //TODO: Initiate recycler adapters
         val upcomingAdapter = ElectionListAdapter(ElectionListener { electionId, division ->
             navToVoterInfo(electionId, division)
         })
@@ -48,7 +40,7 @@ class ElectionsFragment: Fragment() {
         })
         binding.recyclerViewSaved.adapter = savedAdapter
 
-        //TODO: Populate recycler adapters
+        // Observe for changes
         _viewModel.upcomingElections.observe(viewLifecycleOwner, {
             it?.let {
                 upcomingAdapter.submitList(it)
@@ -69,7 +61,4 @@ class ElectionsFragment: Fragment() {
                                               .actionElectionsFragmentToVoterInfoFragment(electionId,
                                                                                           division))
     }
-
-    //TODO: Refresh adapters when fragment loads
-
 }

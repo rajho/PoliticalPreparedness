@@ -9,13 +9,6 @@
         android:padding="@dimen/launch_padding"
         tools:context="com.example.android.politicalpreparedness.ui.MainActivity">
 
-        <!-- TODO: Add image for home screen logo. -->
-
-
-        <!-- TODO: Add Button to navigate to upcoming elections. -->
-
-        <!-- TODO: Add Button to navigate to representatives. -->
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"

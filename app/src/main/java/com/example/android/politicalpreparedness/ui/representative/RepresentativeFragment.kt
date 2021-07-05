@@ -40,7 +40,6 @@ import java.util.*
 class RepresentativeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 	companion object {
-		//TODO: Add Constant for Location request
 		private val TAG = RepresentativeFragment::class.java.simpleName
 
 		private const val FINE_LOCATION_REQUEST_CODE = 44
@@ -51,7 +50,6 @@ class RepresentativeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 	private lateinit var binding: FragmentRepresentativeBinding
 	private lateinit var fusedLocationProvideClient: FusedLocationProviderClient
 
-	//TODO: Declare ViewModel
 	private val _viewModel: RepresentativeViewModel by viewModels()
 
 	override fun onCreateView(
@@ -59,7 +57,6 @@ class RepresentativeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View {
-		//TODO: Establish bindings
 		binding = DataBindingUtil
 			.inflate(inflater, R.layout.fragment_representative, container, false)
 		binding.viewModel = _viewModel
@@ -67,11 +64,9 @@ class RepresentativeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 		binding.state.onItemSelectedListener = this
 		_viewModel.states.addAll(resources.getStringArray(R.array.states).toList())
 
-		//TODO: Define and assign Representative adapter
 		val representativeAdapter = RepresentativeListAdapter()
 		binding.recyclerViewRepresentatives.adapter = representativeAdapter
 
-		//TODO: Populate Representative adapter
 		_viewModel.representatives.observe(viewLifecycleOwner, {
 			hideKeyboard()
 			it?.let {
@@ -79,7 +74,6 @@ class RepresentativeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 			}
 		})
 
-		//TODO: Establish button listeners for field and location search
 		_viewModel.useMyLocation.observe(viewLifecycleOwner, {
 			if (it) {
 				checkLocationPermissionAndSetAddress()
@@ -108,7 +102,6 @@ class RepresentativeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 		permissions: Array<out String>,
 		grantResults: IntArray
 	) {
-		//TODO: Handle location permission result to get location on permission granted
 		val fineLocationDenied = grantResults[FINE_LOCATION_PERMISSION_INDEX] == PackageManager.PERMISSION_DENIED
 
 		if (grantResults.isEmpty() || fineLocationDenied) {
@@ -135,7 +128,6 @@ class RepresentativeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 		return if (isPermissionGranted()) {
 			checkDeviceLocationEnabledAndSetAddress()
 		} else {
-			//TODO: Request Location permissions
 			val permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
 			val resultCode = FINE_LOCATION_REQUEST_CODE
 			requestPermissions(permissionsArray, resultCode)
@@ -222,7 +214,6 @@ class RepresentativeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 	}
 
 	private fun isPermissionGranted(): Boolean {
-		//TODO: Check if permission is already granted and return (true = granted, false = denied/other)
 		val fineLocationPermission = ContextCompat.checkSelfPermission(
 			requireContext(),
 			Manifest.permission.ACCESS_FINE_LOCATION
@@ -232,9 +223,8 @@ class RepresentativeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 	@SuppressLint("MissingPermission")
 	private fun getLocation() {
-		//TODO: Get location from LocationServices
 		fusedLocationProvideClient = LocationServices.getFusedLocationProviderClient(requireContext())
-		//TODO: The geoCodeLocation method is a helper function to change the lat/long location to a human readable street address
+
 		val locationResult = fusedLocationProvideClient.lastLocation
 		locationResult.addOnCompleteListener { task ->
 			if (task.isSuccessful) {

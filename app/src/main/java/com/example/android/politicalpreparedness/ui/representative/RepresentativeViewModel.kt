@@ -31,7 +31,6 @@ class RepresentativeViewModel @Inject constructor(
 
 	val addressFromGeoLocation = MutableLiveData<Address>()
 
-	//TODO: Establish live data for representatives and address
 	private val _representatives = MutableLiveData<List<Representative>>()
 	val representatives: LiveData<List<Representative>> = _representatives
 
@@ -46,22 +45,10 @@ class RepresentativeViewModel @Inject constructor(
 	private val _loadingRepresentatives = MutableLiveData<Boolean>()
 	val loadingRepresentatives: LiveData<Boolean> = _loadingRepresentatives
 
-	/**
-	 *  The following code will prove helpful in constructing a representative from the API. This code combines the two nodes of the RepresentativeResponse into a single official :
-
-	val (offices, officials) = getRepresentativesDeferred.await()
-	_representatives.value = offices.flatMap { office -> office.getRepresentatives(officials) }
-
-	Note: getRepresentatives in the above code represents the method used to fetch data from the API
-	Note: _representatives in the above code represents the established mutable live data housing representatives
-
-	 */
-
 	fun useMyLocation() {
 		_useMyLocation.value = true
 	}
 
-	//TODO: Create function get address from geo location
 	private fun getAddressFromGeoLocation(): String {
 		addressFromGeoLocation.value?.let {
 			stateSelected = it.state
@@ -74,12 +61,10 @@ class RepresentativeViewModel @Inject constructor(
 		return addressFromGeoLocation.value?.toFormattedString() ?: ""
 	}
 
-	//TODO: Create function to get address from individual fields
 	private fun getFullAddress(): String {
 		return """${address1.value ?: ""} ${address2.value ?: ""} ${city.value ?: ""} $stateSelected ${zip.value ?: ""}"""
 	}
 
-	//TODO: Create function to fetch representatives from API from a provided address
 	fun findMyRepresentatives(useLocation: Boolean) {
 		_loadingRepresentatives.value = true
 

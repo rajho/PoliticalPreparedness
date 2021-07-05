@@ -27,36 +27,25 @@ class VoterInfoFragment : Fragment() {
 		savedInstanceState: Bundle?
 	): View {
 		binding = DataBindingUtil.inflate(inflater, R.layout.fragment_voter_info, container, false)
-
-		//TODO: Add ViewModel values and create ViewModel
-		//TODO: Add binding values
 		binding.viewModel = _viewModel
 		binding.lifecycleOwner = this
 
-		//TODO: Populate voter info -- hide views without provided data.
-		/**
-		Hint: You will need to ensure proper data is provided from previous fragment.
-		 */
+		// Observe for LiveData changes
 		_viewModel.showToastInt.observe(this, Observer {
 			Toast.makeText(activity, getString(it), Toast.LENGTH_LONG).show()
 		})
 
-		//TODO: Handle loading of URLs
 		_viewModel.openBrowser.observe(this, Observer { url ->
 			url?.let {
 				loadUrlIntent(it)
 			}
 		})
 
-		//TODO: Handle save button UI state
-		//TODO: cont'd Handle save button clicks
 		return binding.root
 	}
 
-	//TODO: Create method to load URL intents
 	private fun loadUrlIntent(url: String) {
 		val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url));
 		startActivity(browserIntent);
 	}
-
 }

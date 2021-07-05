@@ -19,8 +19,6 @@ class VoterInfoViewModel @Inject constructor(
 	@RepositoryDataSource private val electionRepository: IElectionDataSource,
 	savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
-	//TODO: Add live data to hold voter info
 	private val _voterInfo = MutableLiveData<VoterInfoResponse>()
 	val voterInfo: LiveData<VoterInfoResponse> = _voterInfo
 
@@ -54,7 +52,6 @@ class VoterInfoViewModel @Inject constructor(
 	private val _showConnectionError = MutableLiveData<Boolean>()
 	val showConnectionError: LiveData<Boolean> = _showConnectionError
 
-	//TODO: Add var and methods to populate voter info
 	init {
 		electionId = savedStateHandle["arg_election_id"]
 		division = savedStateHandle["arg_division"]
@@ -86,7 +83,6 @@ class VoterInfoViewModel @Inject constructor(
 		}
 	}
 
-	//TODO: Add var and methods to support loading URLs
 	fun openLocationsInBrowser() {
 		voterInfo.value?.state?.firstOrNull()?.electionAdministrationBody?.votingLocationFinderUrl?.let {
 			_openBrowser.value = it
@@ -99,9 +95,6 @@ class VoterInfoViewModel @Inject constructor(
 		}
 	}
 
-
-	//TODO: Add var and methods to save and remove elections to local database
-	//TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
 	/**
 	 * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
 	 */
